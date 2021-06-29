@@ -1,0 +1,24 @@
+{
+  "name": "world-art-ru-parser",
+  "version": "1.0.0",
+  "description": "world-art.ru parser",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NazarBashinskiy/world-art-ru-parser.git"
+  },
+  "author": "Nazar Bashinskiy",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NazarBashinskiy/world-art-ru-parser/issues"
+  },
+  "homepage": "https://github.com/NazarBashinskiy/world-art-ru-parser#readme",
+  "devDependencies": {
+    "@types/node": "^15.12.5",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
+  }
+}
