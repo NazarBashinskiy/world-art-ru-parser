@@ -1,5 +1,6 @@
 export interface ICinemaListItem {
   id: number;
+  picUrl: string;
   title: string;
   year: number;
   countries: Array<string>;

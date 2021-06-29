@@ -1,5 +1,6 @@
 export interface ICinema {
   title: string;
+  picUrl: string;
   countries: Array<string>;
   format: string;
   duration: string;
