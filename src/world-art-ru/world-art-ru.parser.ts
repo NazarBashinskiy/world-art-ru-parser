@@ -19,21 +19,21 @@ async function getCinemaList (page: number): Promise<Array<ICinemaListItem>> {
     const h3 = reviewTable.querySelector('.h3');
     cinemaItem.title = h3.textContent;
     cinemaItem.id = parseInt(h3.getAttribute('href').slice(14));
-    cinemaItem.year = parseInt(reviewTable.querySelectorAll('font')[1].textContent.replace('(', ''));
+    cinemaItem.year = parseInt(reviewTable.querySelectorAll('font')[1].textContent.replace('(', '')) || null;
     reviewTable.childNodes.forEach(item => {
       if (item.nodeType == 3) {
         const text = item.textContent;
         if (text.includes('Производство') || text.includes('Фильм совместного производства')) {
-          cinemaItem.countries = text.split(': ')[1].split(', ');
+          cinemaItem.countries = text.split(': ')[1].split(', ') ?? null;
         }
         if (text.includes('Жанр')) {
-          cinemaItem.genres = text.split(': ')[1].split(', ');
+          cinemaItem.genres = text.split(': ')[1].split(', ') ?? null;
         }
       }
     });
-    cinemaItem.description = reviewTable.querySelector('div.hide')?.textContent;
-    cinemaItem.actors = reviewTable.querySelector('td.review')?.textContent?.split(': ')[1]?.split('...')[0]?.split(', ');
-    cinemaItem.rate = parseFloat(item.querySelector('td[width="180"] b').textContent)
+    cinemaItem.description = reviewTable.querySelector('div.hide')?.textContent ?? null;
+    cinemaItem.actors = reviewTable.querySelector('td.review')?.textContent?.split(': ')[1]?.split('...')[0]?.split(', ') ?? null;
+    cinemaItem.rate = parseFloat(item.querySelector('td[width="180"] b')?.textContent) || null;
     cinemaList.push(cinemaItem);
   });
   return cinemaList;
