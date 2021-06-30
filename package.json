@@ -4,7 +4,8 @@
   "description": "world-art.ru parser",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "migrations": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js migration:run"
   },
   "repository": {
     "type": "git",
