@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NazarBashinskiy/world-art-ru-parser#readme",
   "devDependencies": {
+    "@types/jsdom": "^16.2.12",
     "@types/node": "^15.12.5",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.4"
@@ -25,6 +26,7 @@
     "@types/node-fetch": "^2.5.10",
     "dotenv": "^10.0.0",
     "encoding": "^0.1.13",
+    "jsdom": "^16.6.0",
     "node-fetch": "^2.6.1"
   }
 }
