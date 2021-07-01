@@ -2,6 +2,7 @@ import Bull from 'bull';
 
 import { getCinemaList } from '../world-art-ru/world-art-ru.parser';
 import { createMovie } from '../movies/movie.service';
+import { BadRequestException } from '../common/exceptions/bad-request.exception';
 
 function createJob () {
   const parsingJob = new Bull<number>('parsing');
@@ -18,4 +19,17 @@ function getJob () {
   return new Bull<number>('parsing');
 }
 
-export { createJob, getJob };
+async function startParsing (): Promise<void> {
+  const job = getJob();
+  const status = await job.getJobCounts();
+  if (status.active === 0 && status.waiting === 0) {
+    const pagesAmount = 3094;
+    for (let i = 0; i < pagesAmount; i++) {
+      job.add(i);
+    }
+  } else {
+    throw new BadRequestException('Parsing process has been already started');
+  }
+}
+
+export { createJob, getJob, startParsing };
