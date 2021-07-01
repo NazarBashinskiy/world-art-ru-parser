@@ -14,16 +14,16 @@ export class Movie {
   @Column()
   year: number;
 
-  @Column({ name: 'country_ids', array: true })
+  @Column('int',{ name: 'country_ids', array: true })
   countryIds: Array<number>;
 
-  @Column({ name: 'genre_ids', array: true })
+  @Column('int',{ name: 'genre_ids', array: true })
   genreIds: Array<number>;
 
   @Column()
   description: string;
 
-  @Column({ array: true })
+  @Column('varchar',{ array: true })
   actors: Array<string>
 
   @Column()
