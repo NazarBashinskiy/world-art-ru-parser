@@ -3,7 +3,7 @@ import { Express, Request, Response } from 'express';
 import { BaseGlossaryDto } from './DTO/base-glossary.dto';
 import { getCountryGlossary, getGenresGlossary } from './glossary.service';
 
-export async function glossaryController (app: Express) {
+export async function glossaryController (app: Express): Promise<void> {
   app.get('/glossary/country', (req: Request<null>, res: Response<Array<BaseGlossaryDto>>) => {
     res.json(getCountryGlossary());
   });
