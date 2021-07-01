@@ -5,6 +5,7 @@ import { ICinemaListItem } from '../world-art-ru/interfaces/cinema-list-item.int
 import { Movie } from './movie.entity';
 import { BadRequestException } from '../common/exceptions/bad-request.exception';
 import { NotFoundException } from '../common/exceptions/not-found.exception';
+import { IGetAllMoviesCriteria } from './interfaces/get-all-movies-criteria.interface';
 
 async function createMovie (movie: ICinemaListItem): Promise<Movie> {
   const movieRepository = getRepository(Movie);
@@ -29,4 +30,16 @@ async function getMovieByWorldArtId (worldArtId: number|string): Promise<Movie> 
   }
 }
 
-export { createMovie, getMovieByWorldArtId };
+async function getAllMovies (criteria: IGetAllMoviesCriteria): Promise<Array<Movie>> {
+  const movieRepository = getRepository(Movie);
+  return movieRepository
+    .createQueryBuilder('movie')
+    .select()
+    .where(':genreId = ANY(movie.genreIds)', { genreId: criteria.genreId })
+    .andWhere(':countryId = ANY(movie.countryIds)', { countryId: criteria.countryId })
+    .andWhere('movie.year = :year', { year: criteria.year })
+    .andWhere('movie.title ILIKE :name', { name: `%${criteria.name}%` })
+    .getMany();
+}
+
+export { createMovie, getMovieByWorldArtId, getAllMovies };
