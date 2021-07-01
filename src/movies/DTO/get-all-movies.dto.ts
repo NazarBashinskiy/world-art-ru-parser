@@ -1,4 +1,4 @@
-export class getAllMoviesDto {
+export class GetAllMoviesDto {
   genreId: string;
   countryId: string;
   year: string;
