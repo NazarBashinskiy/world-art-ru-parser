@@ -14,12 +14,19 @@ services:
       - backend
     restart: always
 
+  redis:
+    image: redis:alpine
+    ports:
+      - "63791:6379"
+    restart: always
+
   world-art-ru-parser:
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
       - postgres
+      - redis
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
