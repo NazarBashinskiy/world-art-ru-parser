@@ -5,7 +5,11 @@ import { createMovie } from '../movies/movie.service';
 import { BadRequestException } from '../common/exceptions/bad-request.exception';
 
 function createJob () {
-  const parsingJob = new Bull<number>('parsing');
+  const parsingJob = new Bull<number>('parsing', {
+    redis: {
+      host: process.env.REDIS_HOST
+    }
+  });
   parsingJob.process(async job => {
     const page = job.data;
     const cinemaList = await getCinemaList(page);
