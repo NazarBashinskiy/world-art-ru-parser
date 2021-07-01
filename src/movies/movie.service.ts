@@ -4,6 +4,7 @@ import { getCountryByName, getGenreByName } from '../glossaries/glossary.service
 import { ICinemaListItem } from '../world-art-ru/interfaces/cinema-list-item.interface';
 import { Movie } from './movie.entity';
 import { BadRequestException } from '../common/exceptions/bad-request.exception';
+import { NotFoundException } from '../common/exceptions/not-found.exception';
 
 async function createMovie (movie: ICinemaListItem): Promise<Movie> {
   const movieRepository = getRepository(Movie);
@@ -18,4 +19,14 @@ async function createMovie (movie: ICinemaListItem): Promise<Movie> {
   return movieRepository.save(createdMovie);
 }
 
-export { createMovie };
+async function getMovieByWorldArtId (worldArtId: number|string): Promise<Movie> {
+  const movieRepository = getRepository(Movie);
+  const movie = await movieRepository.findOne({ where: { worldArtId } });
+  if (!!movie) {
+    return movie;
+  } else {
+    throw new NotFoundException('This movie doesn\'t exist');
+  }
+}
+
+export { createMovie, getMovieByWorldArtId };
