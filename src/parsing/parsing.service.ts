@@ -23,6 +23,7 @@ async function startParsing (): Promise<void> {
   const job = getJob();
   const status = await job.getJobCounts();
   if (status.active === 0 && status.waiting === 0) {
+    //TODO: add pages amount parser
     const pagesAmount = 3094;
     for (let i = 0; i < pagesAmount; i++) {
       job.add(i);
@@ -32,4 +33,9 @@ async function startParsing (): Promise<void> {
   }
 }
 
-export { createJob, getJob, startParsing };
+async function getParsingStatus (): Promise<Bull.JobCounts> {
+  const job = getJob();
+  return job.getJobCounts();
+}
+
+export { createJob, getJob, startParsing, getParsingStatus };
