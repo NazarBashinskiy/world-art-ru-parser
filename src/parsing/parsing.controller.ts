@@ -5,9 +5,9 @@ import Bull from 'bull';
 import { getParsingStatus, startParsing } from './parsing.service';
 
 export async function parsingController (app: Express): Promise<void> {
-  app.post('/parser/start', (req: Request<null>, res: Response<Record<string, string>>, next) => {
+  app.post('/parser/start', async (req: Request<null>, res: Response<Record<string, string>>, next) => {
     try {
-      startParsing();
+      await startParsing();
       res.json({ message: 'Parsing started' });
     } catch (e) {
       next(e);

@@ -20,7 +20,11 @@ function createJob () {
 }
 
 function getJob () {
-  return new Bull<number>('parsing');
+  return new Bull<number>('parsing', {
+    redis: {
+      host: process.env.REDIS_HOST
+    }
+  });
 }
 
 async function startParsing (): Promise<void> {
