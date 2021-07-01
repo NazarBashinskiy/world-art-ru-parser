@@ -35,10 +35,10 @@ async function getAllMovies (criteria: IGetAllMoviesCriteria): Promise<Array<Mov
   return movieRepository
     .createQueryBuilder('movie')
     .select()
-    .where(':genreId = ANY(movie.genreIds)', { genreId: criteria.genreId })
-    .andWhere(':countryId = ANY(movie.countryIds)', { countryId: criteria.countryId })
-    .andWhere('movie.year = :year', { year: criteria.year })
-    .andWhere('movie.title ILIKE :name', { name: `%${criteria.name}%` })
+    .where(criteria.genreId ? ':genreId = ANY(movie.genreIds)' : 'true', { genreId: criteria.genreId })
+    .andWhere(criteria.countryId ? ':countryId = ANY(movie.countryIds)': 'true', { countryId: criteria.countryId })
+    .andWhere(criteria.year ? 'movie.year = :year' : 'true', { year: criteria.year })
+    .andWhere(criteria.name ? 'movie.title ILIKE :name' : 'true', { name: `%${criteria.name}%` })
     .getMany();
 }
 

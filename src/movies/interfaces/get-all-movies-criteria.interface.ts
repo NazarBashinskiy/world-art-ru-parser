@@ -1,6 +1,6 @@
 export interface IGetAllMoviesCriteria {
-  genreId: number;
-  countryId: number;
-  year: number;
-  name: string;
+  genreId?: number;
+  countryId?: number;
+  year?: number;
+  name?: string;
 }
